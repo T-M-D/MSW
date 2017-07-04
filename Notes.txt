@@ -1,0 +1,32 @@
+
+http://morgajel.net/2015/05/20/1676
+
+#yum install -y perl openssl-devel perl-XML-LibXML perl-Time-Piece perl-Crypt-SSLeay
+
+yum install -y openssl-devel perl-Archive-Zip perl-Class-MethodMaker uuid-perl perl-SOAP-Lite perl-XML-SAX perl-XML-NamespaceSupport perl-XML-LibXML perl-MIME-Lite perl-MIME-Types perl-MailTools perl-TimeDate uuid libuuid perl-Data-Dump libxml2-devel perl-libwww-perl perl-Test-MockObject perl-Test-Simple perl-Monitoring-Plugin perl-Class-Accessor perl-Config-Tiny perl-Crypt-SSLeay
+
+yum install -y perl-Devel-StackTrace perl-Class-Data-Inheritable perl-Convert-ASN1 perl-Exception-Class perl-Compress-Raw-Zlib perl-Try-Tiny perl-Crypt-SSLeay perl-XML-NamespaceSupport perl-Archive-Zip
+
+
+
+yum update -y
+yum install -y openssl-devel perl perl-CPAN
+
+####cpan -i Locale::Maketext::Simple Params::Check Class::Inspector Class::MethodMaker Compress::Raw::Bzip2 Crypt::OpenSSL::RSA Crypt::OpenSSL::Random Crypt::X509 Data::Dump Devel::CheckLib Digest::MD5 Encode::Locale Env ExtUtils::CBuilder ExtUtils::MakeMaker File::Listing HTML::Parser HTML::Tagset HTTP::Cookies HTTP::Daemon HTTP::Date HTTP::Message HTTP::Negotiate IO::CaptureOutput IO::Compress IO::HTML IO::SessionData IO::Socket::INET6 IO::Socket::SSL IPC::Cmd Import::Into JSON::PP LWP LWP::MediaTypes LWP::Protocol::https Module::Build Module::CoreList Module::Load Module::Load::Conditional Module::Metadata Module::Runtime Mozilla::CA Net::HTTP Net::INET6Glue Net::SSLeay Path::Class Perl::OSType SOAP::Lite Socket6 Sub::Uplevel Task::Weaken Test::Simple Test::Warn URI UUID UUID::Random WWW::RobotRules XML::LibXML XML::Parser::Lite XML::SAX XML::SAX::Base autodie version 
+
+Get the vSphere CLI
+VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
+
+put it in /tmp/
+
+tar xzf VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
+cd vmware-vsphere-cli-distrib/
+###./vmware-install.pl EULA_AGREED=yes --default
+
+I want to run vmware-install.pl and get it to install the modules from CPAN itself.
+ 
+
+Might need to have LWP installed first
+Module: LWP::Protocol::https, Version: 6.04 
+Can't locate LWP.pm in @INC (@INC contains: /usr/local/lib64/perl5 /usr/local/share/perl5 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5 .).
+
