@@ -1,18 +1,36 @@
 
-http://morgajel.net/2015/05/20/1676
 
-#yum install -y perl openssl-devel perl-XML-LibXML perl-Time-Piece perl-Crypt-SSLeay
-
-yum install -y openssl-devel perl-Archive-Zip perl-Class-MethodMaker uuid-perl perl-SOAP-Lite perl-XML-SAX perl-XML-NamespaceSupport perl-XML-LibXML perl-MIME-Lite perl-MIME-Types perl-MailTools perl-TimeDate uuid libuuid perl-Data-Dump libxml2-devel perl-libwww-perl perl-Test-MockObject perl-Test-Simple perl-Monitoring-Plugin perl-Class-Accessor perl-Config-Tiny perl-Crypt-SSLeay
-
-yum install -y perl-Devel-StackTrace perl-Class-Data-Inheritable perl-Convert-ASN1 perl-Exception-Class perl-Compress-Raw-Zlib perl-Try-Tiny perl-Crypt-SSLeay perl-XML-NamespaceSupport perl-Archive-Zip
-
+OK so need to look at installer script, get the @module_to_verify array and test to see what is already installed and then upgrade to the specific version they have defined.
 
 
 yum update -y
-yum install -y openssl-devel perl perl-CPAN
+yum install -y gcc openssl-devel perl perl-CPAN uuid-perl\
+---> yum install -y perl-XML-LibXML <--- this installs a lot of modules ... some below might not be needed!
+cpan -i Module::Build
+#cpan -i LEONT/Module-Build-0.4205.tar.gz
+cpan -i Test::Pod
+cpan -i Test::Pod::Coverage
+cpan -i YAML
+cpan -i Class::XSAccessor
+cpan -i autodie
+cpan -i File::Find::Object
+cpan -i File::Find::Object::Rule
+cpan -i Test::TrailingSpace
+cpan -i Socket6
+cpan -i IO::Socket::INET6
+cpan -i IO::Socket::IP
+cpan -i Net::SSLeay
+cpan -i IO::Socket::SSL
+you need to answer y to tests
+cpan -i LWP::Protocol::https
+you need to answer y to tests
+#cpan -i ExtUtils::MakeMaker
+cpan -i BINGOS/ExtUtils-MakeMaker-6.96.tar.gz
+#cpan -i Net::FTP
+#cpan -i GBARR/libnet-1.22.tar.gz
 
-####cpan -i Locale::Maketext::Simple Params::Check Class::Inspector Class::MethodMaker Compress::Raw::Bzip2 Crypt::OpenSSL::RSA Crypt::OpenSSL::Random Crypt::X509 Data::Dump Devel::CheckLib Digest::MD5 Encode::Locale Env ExtUtils::CBuilder ExtUtils::MakeMaker File::Listing HTML::Parser HTML::Tagset HTTP::Cookies HTTP::Daemon HTTP::Date HTTP::Message HTTP::Negotiate IO::CaptureOutput IO::Compress IO::HTML IO::SessionData IO::Socket::INET6 IO::Socket::SSL IPC::Cmd Import::Into JSON::PP LWP LWP::MediaTypes LWP::Protocol::https Module::Build Module::CoreList Module::Load Module::Load::Conditional Module::Metadata Module::Runtime Mozilla::CA Net::HTTP Net::INET6Glue Net::SSLeay Path::Class Perl::OSType SOAP::Lite Socket6 Sub::Uplevel Task::Weaken Test::Simple Test::Warn URI UUID UUID::Random WWW::RobotRules XML::LibXML XML::Parser::Lite XML::SAX XML::SAX::Base autodie version 
+
+
 
 Get the vSphere CLI
 VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
@@ -21,12 +39,83 @@ put it in /tmp/
 
 tar xzf VMware-vSphere-CLI-6.5.0-4566394.x86_64.tar.gz
 cd vmware-vsphere-cli-distrib/
+chmod a+w bin/vmware-uninstall-vSphere-CLI.pl
+vi vmware-install.pl
+change line 2234 to no for default
+
 ###./vmware-install.pl EULA_AGREED=yes --default
 
 I want to run vmware-install.pl and get it to install the modules from CPAN itself.
- 
 
-Might need to have LWP installed first
+
+CPAN not able to install following Perl modules on the system. These must be 
+installed manually for use by vSphere CLI:
+
+XML::LibXML::Common 0.13 or newer 
+XML::LibXML 1.63 or newer 
+
+
+
+
+Bareword found where operator expected at (eval 153) line 1, near "$Socket6 ::VERSION"
+	(Missing operator before ::VERSION?)
+
+Please wait while configuring CPAN ...
+
+Below mentioned modules with their version needed to be installed,
+these modules are available in your system but vCLI need specific 
+version to run properly
+
+Module: ExtUtils::MakeMaker, Version: 6.96 
+Module: Module::Build, Version: 0.4205 
 Module: LWP::Protocol::https, Version: 6.04 
-Can't locate LWP.pm in @INC (@INC contains: /usr/local/lib64/perl5 /usr/local/share/perl5 /usr/lib64/perl5/vendor_perl /usr/share/perl5/vendor_perl /usr/lib64/perl5 /usr/share/perl5 .).
+
+
+
+
+[root@centosxx vmware-vsphere-cli-distrib]# cpan -D ExtUtils::MakeMaker
+Reading '/root/.cpan/Metadata'
+  Database was generated on Sat, 01 Jul 2017 01:41:02 GMT
+ExtUtils::MakeMaker
+-------------------------------------------------------------------------
+	(no description)
+	B/BI/BINGOS/ExtUtils-MakeMaker-7.30.tar.gz
+	/root/perl5/lib/perl5/ExtUtils/MakeMaker.pm
+	Installed: 7.30
+	CPAN:      7.30  up to date
+	Chris Williams (BINGOS)
+	chris@bingosnet.co.uk
+
+[root@centosxx vmware-vsphere-cli-distrib]# cpan -D Module::Build
+Reading '/root/.cpan/Metadata'
+  Database was generated on Sat, 01 Jul 2017 01:41:02 GMT
+Module::Build
+-------------------------------------------------------------------------
+	(no description)
+	L/LE/LEONT/Module-Build-0.4224.tar.gz
+	/usr/local/share/perl5/Module/Build.pm
+	Installed: 0.4224
+	CPAN:      0.4224  up to date
+	Leon Timmermans (LEONT)
+	fawaka@gmail.com
+
+[root@centosxx vmware-vsphere-cli-distrib]# cpan -D LWP::Protocol::https
+Reading '/root/.cpan/Metadata'
+  Database was generated on Sat, 01 Jul 2017 01:41:02 GMT
+LWP::Protocol::https
+-------------------------------------------------------------------------
+	(no description)
+	O/OA/OALDERS/LWP-Protocol-https-6.07.tar.gz
+	/usr/local/share/perl5/LWP/Protocol/https.pm
+	Installed: 6.07
+	CPAN:      6.07  up to date
+	Olaf Alders (OALDERS)
+	olaf@wundersolutions.com
+
+
+
+http://morgajel.net/2015/05/20/1676
+
+
+https://translate.google.com.au/translate?hl=en&sl=ja&u=https://sky-joker.tech/2016/07/22/vsphere-perl-sdk-6%25E7%25B3%25BB%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB/&prev=search
 
