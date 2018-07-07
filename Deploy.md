@@ -7,16 +7,19 @@ The initial purpose of MSW is to replace the VMware vMA appliance that VMware de
   * The older SDK on the vMA does not work
 
 The steps here basically replace the "Deploy vMA Appliance" in the box293_check_vmware manual. After following these steps you would resume the manual at the "Transfer the box293_check_vmware plugin to the vMA" section.
+
 From this point on, MSW refers to the machine you are using as the "vMA".
 
 These steps should work on RHEL / CentOS / Oracle Linux version 7.x. Other operating systems (OS) will be added later, but for now this just gets it working.
 
 # Deploy Operating System
 Perform a basical install of RHEL / CentOS / Oracle Linux version 7.x. You do not require the desktop GUI, all the steps in this guide will be performed from a terminal session.
+
 Once you have installed the OS you should configure it with a static IP address before continuing.
 
 # Download vSphere Perl SDK
 You will need to visit the VMware website to download the vSphere Perl SDK, it's not possible to provide a download URL in this guide as you require a user account to perform the download.
+
 You can download it from:
 * https://code.vmware.com/web/sdk/67/vsphere-perl
 * You need the 64 bit version, for example:
@@ -60,10 +63,12 @@ You may also receive a message stating that some Perl modules may be too old to 
 
 # Create vi-admin User Account
 The vMA appliance came with a user account called `vi-admin`. This is heavily referenced in the box293_check_vmware manual so for simplicity reasons you need to create that user account on the MSW so you can continue following the manual.
+
 Create the user with this command:
 ```
 useradd vi-admin
 ```
+
 Define a password for the user with this command:
 ```
 passwd vi-admin
