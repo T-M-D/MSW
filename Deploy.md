@@ -25,7 +25,7 @@ You can download it from:
 * You need the 64 bit version, for example:
   * `VMware-vSphere-Perl-SDK-6.7.0-8156551.x86_64.tar.gz`
 
-Once you've downloaded the SDK you will need to transfer it to your MSW to the /tmp/ directory.
+Once you've downloaded the SDK you will need to transfer it to your MSW to the `/tmp/` directory.
 
 # Install Pre-requisites
 Login to your MSW as the root user and execute the following command to install the pre-requisite software:
